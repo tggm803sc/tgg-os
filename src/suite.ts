@@ -8,6 +8,8 @@ export interface SuiteApp {
   tint: string;
   url: string;
   status: SuiteStatus;
+  /** Short label for the dock, where names get truncated. */
+  dockLabel?: string;
 }
 
 /** Every TGG app, so one OS reaches the whole suite. */
@@ -38,6 +40,7 @@ export const SUITE_APPS: SuiteApp[] = [
     tint: '#a78bfa',
     url: 'https://play.google.com/store/apps/details?id=com.clone.android.dual.space',
     status: 'device',
+    dockLabel: 'VM',
   },
   {
     name: 'TGG Phone',

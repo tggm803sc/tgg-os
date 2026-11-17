@@ -148,7 +148,7 @@ export default function Os({ onOpenSnap, streak, snapsSent, crew }: Props) {
             aria-label={app.name}
           >
             <span>{app.icon}</span>
-            <em>{app.name.replace('TGG ', '')}</em>
+            <em>{app.dockLabel ?? app.name.replace('TGG ', '')}</em>
           </a>
         ))}
       </nav>
