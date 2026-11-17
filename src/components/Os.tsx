@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import {
-  LIVE_APPS,
+  DOCK_APPS,
   STUDIO_APK_BUILD,
   STUDIO_APK_PACKAGE,
   STUDIO_APK_SIZE,
@@ -138,7 +138,7 @@ export default function Os({ onOpenSnap, streak, snapsSent, crew }: Props) {
           <span>📸</span>
           <em>Snap</em>
         </button>
-        {LIVE_APPS.map((app) => (
+        {DOCK_APPS.map((app) => (
           <a
             key={app.name}
             className="os-dock-app"

@@ -88,6 +88,11 @@ export const SUITE_APPS: SuiteApp[] = [
 
 export const LIVE_APPS = SUITE_APPS.filter((app) => app.status === 'live');
 
+/** Apps the dock can launch: the hosted ones plus anything with its own store link. */
+export const DOCK_APPS = SUITE_APPS.filter(
+  (app) => app.status === 'live' || app.status === 'device',
+);
+
 import apkMeta from './apk-meta.json';
 
 export const STUDIO_PAGE_URL = 'https://site-363c68e932f2463e9a132c0126332b2a.freebuff.page';
