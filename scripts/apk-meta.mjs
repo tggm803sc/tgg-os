@@ -34,6 +34,28 @@ const EMPTY = {
   fetchedAt: '',
 };
 
+async function readCached() {
+  if (!existsSync(OUT)) return null;
+  try {
+    return JSON.parse(await readFile(OUT, 'utf8'));
+  } catch {
+    return null;
+  }
+}
+
+/** Everything except fetchedAt, so an unchanged APK never dirties the cache file. */
+function fingerprint(meta) {
+  return JSON.stringify({
+    versionName: meta.versionName,
+    versionCode: meta.versionCode,
+    package: meta.package,
+    bytes: meta.bytes,
+    sizeLabel: meta.sizeLabel,
+    sha256: meta.sha256,
+    source: meta.source,
+  });
+}
+
 async function keepCached(message) {
   console.warn(`[apk-meta] could not refresh metadata: ${message}`);
   if (existsSync(OUT)) {
@@ -195,9 +217,12 @@ try {
 
   if (!meta.versionName) throw new Error('versionName missing from manifest');
 
-  await writeFile(OUT, `${JSON.stringify(meta, null, 2)}\n`);
+  const cached = await readCached();
+  const unchanged = cached !== null && fingerprint(cached) === fingerprint(meta);
+  if (!unchanged) await writeFile(OUT, `${JSON.stringify(meta, null, 2)}\n`);
+
   console.log(
-    `[apk-meta] ${meta.package} v${meta.versionName} (build ${meta.versionCode}) · ${meta.sizeLabel}`,
+    `[apk-meta] ${meta.package} v${meta.versionName} (build ${meta.versionCode}) · ${meta.sizeLabel}${unchanged ? ' (cache unchanged)' : ''}`,
   );
 } catch (error) {
   await keepCached(error instanceof Error ? error.message : String(error));
