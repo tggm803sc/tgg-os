@@ -7,6 +7,9 @@ dist/
 # logs
 *.log
 
+# local screenshot artifacts
+artifacts/
+
 # editor / OS
 .DS_Store
 .idea/

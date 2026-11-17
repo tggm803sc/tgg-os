@@ -1,4 +1,4 @@
-export type SuiteStatus = 'in-os' | 'live' | 'offline';
+export type SuiteStatus = 'in-os' | 'live' | 'offline' | 'device';
 
 export interface SuiteApp {
   name: string;
@@ -8,6 +8,8 @@ export interface SuiteApp {
   tint: string;
   url: string;
   status: SuiteStatus;
+  /** Short label for the dock, where names get truncated. */
+  dockLabel?: string;
 }
 
 /** Every TGG app, so one OS reaches the whole suite. */
@@ -29,6 +31,16 @@ export const SUITE_APPS: SuiteApp[] = [
     tint: '#7cffb2',
     url: 'https://site-06b1aca5210f4581b3dbed8a0d482c87.freebuff.page',
     status: 'live',
+  },
+  {
+    name: 'TGG World VM',
+    blurb: 'TGGWORLD in a virtual Android on your phone, via Virtual Master.',
+    tag: 'Device',
+    icon: '🖥️',
+    tint: '#a78bfa',
+    url: 'https://play.google.com/store/apps/details?id=com.clone.android.dual.space',
+    status: 'device',
+    dockLabel: 'VM',
   },
   {
     name: 'TGG Phone',
@@ -79,6 +91,11 @@ export const SUITE_APPS: SuiteApp[] = [
 
 export const LIVE_APPS = SUITE_APPS.filter((app) => app.status === 'live');
 
+/** Apps the dock can launch: the hosted ones plus anything with its own store link. */
+export const DOCK_APPS = SUITE_APPS.filter(
+  (app) => app.status === 'live' || app.status === 'device',
+);
+
 import apkMeta from './apk-meta.json';
 
 export const STUDIO_PAGE_URL = 'https://site-363c68e932f2463e9a132c0126332b2a.freebuff.page';
@@ -93,5 +110,6 @@ export const STUDIO_APK_PACKAGE = apkMeta.package;
 export function statusLabel(status: SuiteStatus): string {
   if (status === 'in-os') return 'Inside';
   if (status === 'live') return 'Live';
+  if (status === 'device') return 'On phone';
   return 'Parked';
 }

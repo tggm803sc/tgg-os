@@ -2178,6 +2178,11 @@ img {
   border-color: rgba(255, 154, 77, 0.3);
 }
 
+.os-status.device {
+  color: #c4b5fd;
+  border-color: rgba(196, 181, 253, 0.35);
+}
+
 .os-stats {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
