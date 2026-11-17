@@ -22,11 +22,21 @@ export default function Os({ onOpenSnap, streak, snapsSent, crew }: Props) {
   const [now, setNow] = useState(() => new Date());
 
   useEffect(() => {
-    const id = window.setInterval(() => setNow(new Date()), 30_000);
-    return () => window.clearInterval(id);
+    // Hands and minutes change once a minute, so tick on the minute boundary
+    // instead of every 30s: the clock is never stale and never busy either.
+    let interval = 0;
+    const timeout = window.setTimeout(() => {
+      setNow(new Date());
+      interval = window.setInterval(() => setNow(new Date()), 60_000);
+    }, 60_000 - (Date.now() % 60_000));
+    return () => {
+      window.clearTimeout(timeout);
+      window.clearInterval(interval);
+    };
   }, []);
 
   const clock = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+  const today = now.toLocaleDateString([], { weekday: 'short', day: 'numeric', month: 'short' });
 
   return (
     <section className="os">
@@ -35,7 +45,9 @@ export default function Os({ onOpenSnap, streak, snapsSent, crew }: Props) {
           <span className="brand-dot" />
           TGG OS
         </span>
-        <span className="os-clock">{clock}</span>
+        <span className="os-clock" title={today}>
+          {clock}
+        </span>
       </header>
 
       <div className="os-scroll">

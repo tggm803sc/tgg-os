@@ -1,7 +1,48 @@
 import type { AppState } from './types';
 
 const KEY = 'tgg-snap-v1';
+const SHELL_KEY = 'tgg-os-shell-v1';
 const DAY = 24 * 60 * 60 * 1000;
+
+export type ShellScreen = 'os' | 'snap';
+export type SnapTab = 'stories' | 'chat' | 'camera' | 'profile';
+
+export interface ShellState {
+  screen: ShellScreen;
+  tab: SnapTab;
+}
+
+const SNAP_TABS: SnapTab[] = ['stories', 'chat', 'camera', 'profile'];
+
+/**
+ * Where the user left off, so a reload returns them to the same screen.
+ * The camera tab is deliberately not restored: mounting it asks the browser
+ * for camera access, and that should only happen from a deliberate tap.
+ */
+export function loadShell(): ShellState {
+  const fallback: ShellState = { screen: 'os', tab: 'stories' };
+  try {
+    const raw = localStorage.getItem(SHELL_KEY);
+    if (!raw) return fallback;
+    const parsed = JSON.parse(raw) as Partial<ShellState> | null;
+    if (!parsed) return fallback;
+    const tab = SNAP_TABS.includes(parsed.tab as SnapTab) ? (parsed.tab as SnapTab) : 'stories';
+    return {
+      screen: parsed.screen === 'snap' ? 'snap' : 'os',
+      tab: tab === 'camera' ? 'stories' : tab,
+    };
+  } catch {
+    return fallback;
+  }
+}
+
+export function saveShell(shell: ShellState): void {
+  try {
+    localStorage.setItem(SHELL_KEY, JSON.stringify(shell));
+  } catch {
+    // Storage blocked or full: navigation still works, it just won't persist.
+  }
+}
 
 export function loadState(): AppState | null {
   try {
