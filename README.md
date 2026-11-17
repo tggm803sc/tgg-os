@@ -6,7 +6,7 @@ Unified front door for the TGG apps. Snap — camera, stories, chats and streaks
 
 ## Development
 
-Node 20 is what CI runs; `.nvmrc` pins it for nvm/fnm users (`nvm use`).
+Node 20.19+ is what CI runs (Vite 8 needs `^20.19.0 || ^22.13.0 || >=23.5.0`); `.nvmrc` pins the major for nvm/fnm users (`nvm use`).
 
 ```bash
 npm install
