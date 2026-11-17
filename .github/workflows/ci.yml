@@ -12,6 +12,10 @@ jobs:
         with:
           node-version: 20
           cache: npm
-      - run: npm ci
+      - name: Show Node version
+        run: node --version
+      # .npmrc sets engine-strict, so this fails if Node is outside package.json engines
+      - name: Install dependencies
+        run: npm ci
       - run: npm run typecheck
       - run: npm run build
