@@ -32,11 +32,11 @@ export const SUITE_APPS: SuiteApp[] = [
   },
   {
     name: 'TGG World VM',
-    blurb: 'Runs the TGGWORLD build in a virtual Android on your phone.',
+    blurb: 'TGGWORLD in a virtual Android on your phone, via Virtual Master.',
     tag: 'Device',
     icon: '🖥️',
     tint: '#a78bfa',
-    url: '',
+    url: 'https://play.google.com/store/apps/details?id=com.clone.android.dual.space',
     status: 'device',
   },
   {
