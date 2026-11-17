@@ -87,6 +87,24 @@ export const SUITE_APPS: SuiteApp[] = [
     url: 'https://site-363c68e932f2463e9a132c0126332b2a.freebuff.page',
     status: 'live',
   },
+  {
+    name: 'TGG Cash',
+    blurb: 'Bitcoin mining farm and cash wallet.',
+    tag: 'Finance',
+    icon: '\u{1F4B5}',
+    tint: '#c8ff3d',
+    url: 'https://site-fa61cbe050024fc2bc4c3f33a1e32323.freebuff.page',
+    status: 'live',
+  },
+  {
+    name: 'TGG Store',
+    blurb: 'TGG Cash, Pro and downloads in one place.',
+    tag: 'Store',
+    icon: '\u{1F6CD}\u{FE0F}',
+    tint: '#c8ff3d',
+    url: 'https://site-fa61cbe050024fc2bc4c3f33a1e32323.freebuff.page/store',
+    status: 'live',
+  },
 ];
 
 export const LIVE_APPS = SUITE_APPS.filter((app) => app.status === 'live');
