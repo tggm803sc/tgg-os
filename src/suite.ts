@@ -62,12 +62,12 @@ export const SUITE_APPS: SuiteApp[] = [
   },
   {
     name: 'TGG Suno',
-    blurb: 'Song generation workspace.',
+    blurb: 'Song generation workspace. Offline until its site is republished.',
     tag: 'Audio',
     icon: '🎵',
     tint: '#b39dff',
     url: 'https://site-2a1765ed52884bd4ae871ed942404ba0.freebuff.page',
-    status: 'live',
+    status: 'offline',
   },
   {
     name: 'TGG AI Impact Desk',
