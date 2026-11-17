@@ -1,4 +1,4 @@
-export type SuiteStatus = 'in-os' | 'live' | 'offline';
+export type SuiteStatus = 'in-os' | 'live' | 'offline' | 'device';
 
 export interface SuiteApp {
   name: string;
@@ -29,6 +29,15 @@ export const SUITE_APPS: SuiteApp[] = [
     tint: '#7cffb2',
     url: 'https://site-06b1aca5210f4581b3dbed8a0d482c87.freebuff.page',
     status: 'live',
+  },
+  {
+    name: 'TGG World VM',
+    blurb: 'Runs the TGGWORLD build in a virtual Android on your phone.',
+    tag: 'Device',
+    icon: '🖥️',
+    tint: '#a78bfa',
+    url: '',
+    status: 'device',
   },
   {
     name: 'TGG Phone',
@@ -93,5 +102,6 @@ export const STUDIO_APK_PACKAGE = apkMeta.package;
 export function statusLabel(status: SuiteStatus): string {
   if (status === 'in-os') return 'Inside';
   if (status === 'live') return 'Live';
+  if (status === 'device') return 'On phone';
   return 'Parked';
 }
