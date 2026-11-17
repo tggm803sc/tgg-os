@@ -6,6 +6,8 @@ Unified front door for the TGG apps. Snap — camera, stories, chats and streaks
 
 ## Development
 
+Node 20 is what CI runs; `.nvmrc` pins it for nvm/fnm users (`nvm use`).
+
 ```bash
 npm install
 npm run dev      # http://localhost:3002
