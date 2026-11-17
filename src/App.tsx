@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import type { AppState, ChatMessage, Snap, StoryItem } from './types';
-import { loadState, pruneState, saveState } from './store';
+import { loadState, loadShell, pruneState, saveShell, saveState } from './store';
 import { seedState } from './seed';
 import { syntheticSnap } from './media';
 import { pick, uid } from './util';
@@ -39,8 +39,9 @@ const CREW_SNAPS = ['BOOTH 3', 'TAKE 47', 'SOUNDCHECK', 'THE BUS', 'ON STAGE', '
 
 export default function App() {
   const [state, setState] = useState<AppState>(() => loadState() ?? seedState());
-  const [screen, setScreen] = useState<'os' | 'snap'>('os');
-  const [tab, setTab] = useState<Tab>('stories');
+  const [shell] = useState(loadShell);
+  const [screen, setScreen] = useState<'os' | 'snap'>(shell.screen);
+  const [tab, setTab] = useState<Tab>(shell.tab);
   const [draft, setDraft] = useState<string | null>(null);
   const [viewerSnapId, setViewerSnapId] = useState<string | null>(null);
   const [storyView, setStoryView] = useState<{ authorId: string; index: number } | null>(null);
@@ -56,6 +57,11 @@ export default function App() {
   useEffect(() => {
     saveState(state);
   }, [state]);
+
+  // Reopen on the screen and tab the user was last on.
+  useEffect(() => {
+    saveShell({ screen, tab });
+  }, [screen, tab]);
 
   useEffect(() => {
     const id = window.setInterval(() => setState((prev) => pruneState(prev)), 60_000);
