@@ -1,6 +1,7 @@
 # TGG OS
 
 [![CI](https://github.com/tggm803sc/tgg-os/actions/workflows/ci.yml/badge.svg)](https://github.com/tggm803sc/tgg-os/actions/workflows/ci.yml)
+[![node](https://img.shields.io/badge/node-%5E20.19%20%7C%7C%20%5E22.13%20%7C%7C%20%3E%3D23.5-blue)](package.json)
 
 Unified front door for the TGG apps. Snap — camera, stories, chats and streaks — runs inside it, and the rest of the suite launches from the app grid.
 
